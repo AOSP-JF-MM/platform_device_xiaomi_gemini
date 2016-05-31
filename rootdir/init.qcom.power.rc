@@ -166,6 +166,7 @@ on enable-low-power
 
 on class_start:late_start
     trigger enable-low-power
+    write /proc/sys/kernel/sched_boost 0
 
 on property:dev.bootcomplete=1
     setprop sys.io.scheduler "bfq"
