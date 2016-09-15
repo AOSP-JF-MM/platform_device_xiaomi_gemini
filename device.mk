@@ -108,13 +108,9 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/audio/sound_trigger_mixer_paths_wcd9330.xml:system/etc/sound_trigger_mixer_paths_wcd9330.xml \
     $(LOCAL_PATH)/audio/sound_trigger_platform_info.xml:system/etc/sound_trigger_platform_info.xml
 
-# Browser
-PRODUCT_PACKAGES += \
-    Gello
-
 # Camera
 PRODUCT_PACKAGES += \
-    Snap
+    SnapdragonCamera
 
 # Device config scripts
 PRODUCT_PACKAGES += \
@@ -252,7 +248,7 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/perf-profile6.conf:system/vendor/etc/perf-profile6.conf
 
 # Power
-PRODUCT_PACKAGES += \
+#PRODUCT_PACKAGES += \
     power.msm8996
 
 # QMI
