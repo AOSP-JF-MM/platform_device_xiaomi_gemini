@@ -128,6 +128,14 @@ MAX_EGL_CACHE_SIZE := 2048*1024
 
 OVERRIDE_RS_DRIVER := libRSDriver_adreno.so
 
+# Enable dex pre-optimization to speed up initial boot sequence
+ifeq ($(HOST_OS),linux)
+  ifeq ($(WITH_DEXPREOPT),)
+    WITH_DEXPREOPT := true
+    WITH_DEXPREOPT_PIC := true
+  endif
+endif
+
 # Encryption
 TARGET_HW_DISK_ENCRYPTION := true
 
