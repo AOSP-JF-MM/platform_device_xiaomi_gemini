@@ -183,6 +183,9 @@ USE_SENSOR_MULTI_HAL := true
 TARGET_INIT_VENDOR_LIB := libinit_gemini
 TARGET_RECOVERY_DEVICE_MODULES := libinit_gemini
 
+# WebView Beta
+PREBUILT_WEBVIEW_VERSION := beta
+
 # Wifi
 BOARD_HAS_QCOM_WLAN := true
 BOARD_HAS_QCOM_WLAN_SDK := true
