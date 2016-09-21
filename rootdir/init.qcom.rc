@@ -29,6 +29,10 @@ import init.qcom.power.rc
 import init.qcom.usb.rc
 import init.target.rc
 
+on early-init
+    mount debugfs debugfs /sys/kernel/debug
+    chmod 0755 /sys/kernel/debug
+
 on init
     # Shim libraries
     export LD_SHIM_LIBS /system/vendor/bin/perfd|libperfd_gemini.so
