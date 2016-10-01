@@ -109,6 +109,8 @@ USE_DEVICE_SPECIFIC_CAMERA := true
 # Charger
 BOARD_CHARGER_ENABLE_SUSPEND := true
 
+TARGET_TAP_TO_WAKE_NODE := "/sys/devices/soc/75ba000.i2c/i2c-12/12-0020/input/input1/wake_gesture"
+
 # CNE and DPM
 TARGET_LDPRELOAD := libNimsWrap.so
 BOARD_USES_QCNE := true
