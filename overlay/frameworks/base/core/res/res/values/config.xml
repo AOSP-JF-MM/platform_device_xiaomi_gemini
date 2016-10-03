@@ -92,7 +92,7 @@
     <integer-array name="config_autoBrightnessButtonBacklightValues">
     </integer-array>
 
-    <bool name="config_deviceHasVariableButtonBrightness">true</bool>
+    <!-- <bool name="config_deviceHasVariableButtonBrightness">true</bool> -->
 
     <!-- Screen brightness used to dim the screen when the user activity
          timeout expires.  May be less than the minimum allowed brightness setting
@@ -280,7 +280,7 @@
     <bool translatable="false" name="config_wifi_background_scan_support">true</bool>
 
     <!-- Boolean indicating autojoin will prefer 5GHz and choose 5GHz BSSIDs -->
-    <bool translatable="true" name="config_wifi_enable_5GHz_preference">true</bool>
+    <!-- <bool translatable="true" name="config_wifi_enable_5GHz_preference">true</bool> -->
 
     <!-- Wifi driver supports batched scan -->
     <bool translatable="false" name="config_wifi_batched_scan_supported">true</bool>
@@ -406,7 +406,7 @@
 
     <!-- Flag indicating emergency calls will always use IMS irrespective of the state of
     the IMS connection -->
-    <bool name="useImsAlwaysForEmergencyCall">false</bool>
+    <!-- <bool name="useImsAlwaysForEmergencyCall">false</bool> -->
 
     <!-- Flag specifying whether VoLTE is available on device -->
     <bool name="config_device_volte_available">true</bool>
@@ -456,7 +456,7 @@
             64 - Volume rocker
          For example, a device with Home, Back and Menu keys would set this
          config to 7. -->
-    <integer name="config_deviceHardwareKeys">83</integer>
+    <!-- <integer name="config_deviceHardwareKeys">83</integer> -->
 
     <!-- Hardware keys present on the device with the ability to wake, stored as a bit field.
          This integer should equal the sum of the corresponding value for each
@@ -494,7 +494,7 @@
          This needs to match the constants in
          policy/src/com/android/internal/policy/impl/PhoneWindowManager.java
     -->
-    <integer name="config_longPressOnAppSwitchBehavior">1</integer>
+    <!-- <integer name="config_longPressOnAppSwitchBehavior">1</integer> -->
 
     <!-- Operating volatage for bluetooth controller. 0 by default-->
     <integer name="config_bluetooth_operating_voltage_mv">3300</integer>
@@ -508,6 +508,6 @@
 
     <!-- Support in Surfaceflinger for blur layers.
          NOTE: This requires additional hardware-specific code. -->
-    <bool name="config_ui_blur_enabled">true</bool>
+    <!-- <bool name="config_ui_blur_enabled">true</bool> -->
 
 </resources>
