@@ -13,7 +13,6 @@ LOCAL_C_INCLUDES := $(LOCAL_PATH)/../src
 LOCAL_C_INCLUDES += $(LOCAL_PATH)/../inc
 LOCAL_C_INCLUDES += $(LOCAL_PATH)/../../ipanat/inc
 LOCAL_C_INCLUDES += external/icu/icu4c/source/common
-LOCAL_C_INCLUDES += external/dhcpcd
 LOCAL_C_INCLUDES += external/libxml2/include
 LOCAL_C_INCLUDES += external/libnetfilter_conntrack/include
 LOCAL_C_INCLUDES += external/libnfnetlink/include
@@ -65,7 +64,6 @@ LOCAL_SHARED_LIBRARIES := libipanat
 LOCAL_SHARED_LIBRARIES += libxml2
 LOCAL_SHARED_LIBRARIES += libnfnetlink
 LOCAL_SHARED_LIBRARIES += libnetfilter_conntrack
-LOCAL_SHARED_LIBRARIES += libdhcpcd
 include $(BUILD_EXECUTABLE)
 
 ################################################################################
