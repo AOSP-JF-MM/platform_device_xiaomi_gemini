@@ -237,6 +237,12 @@ PRODUCT_PACKAGES += \
     libOmxVenc \
     libstagefrighthw
 
+# OTA Updates
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.ota.romname=AOSP-GEMINI-6.0 \
+    ro.ota.version=$(shell date -u +%Y%m%d) \
+    ro.ota.manifest=http://romhut.com/roms/aosp-gemini-6-0/ota.xml
+
 # Performance
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/perf-profile0.conf:system/vendor/etc/perf-profile0.conf \
