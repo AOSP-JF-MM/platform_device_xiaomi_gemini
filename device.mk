@@ -138,6 +138,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     libcnefeatureconfig
 
+# ConfigPanel
+PRODUCT_PACKAGES += \
+    ConfigPanel \
+
 # Display
 PRODUCT_PACKAGES += \
     copybit.msm8996 \
