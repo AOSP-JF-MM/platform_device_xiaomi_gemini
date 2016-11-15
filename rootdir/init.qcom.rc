@@ -30,6 +30,9 @@ import init.qcom.usb.rc
 import init.target.rc
 
 on init
+    # Shim libraries
+    export LD_SHIM_LIBS /system/vendor/bin/perfd|libperfd_gemini.so
+
     # Set permissions for persist partition
     mkdir /persist 0771 system system
 
