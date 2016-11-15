@@ -153,10 +153,8 @@ on enable-low-power
     # Start IO prefetcher service
     start iop
 
-on class_start:late_start
-    trigger enable-low-power
-
 on property:dev.bootcomplete=1
+    trigger enable-low-power
     setprop sys.io.scheduler "bfq"
 
 on property:init.svc.recovery=running
