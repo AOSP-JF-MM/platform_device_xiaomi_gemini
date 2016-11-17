@@ -14,4 +14,4 @@ allow readmac persist_file:file create_file_perms;
 allow readmac self:capability dac_override;
 allow readmac self:socket create_socket_perms;
 
-allow readmac diag_device:chr_file { open ioctl read write getattr };
+allow readmac diag_device:chr_file rw_file_perms;
