@@ -34,9 +34,6 @@ on early-init
     chmod 0755 /sys/kernel/debug
 
 on init
-    # Shim libraries
-    export LD_SHIM_LIBS /system/vendor/bin/perfd|libperfd_gemini.so
-
     # Set permissions for persist partition
     mkdir /persist 0771 system system
 
