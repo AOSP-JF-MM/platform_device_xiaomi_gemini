@@ -266,7 +266,7 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/perf-profile6.conf:system/vendor/etc/perf-profile6.conf
 
 # Power
-#PRODUCT_PACKAGES += \
+PRODUCT_PACKAGES += \
     power.msm8996
 
 # QMI
