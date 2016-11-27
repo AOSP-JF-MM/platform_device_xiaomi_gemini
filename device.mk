@@ -242,7 +242,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.ota.romname=AOSP-GEMINI-6.0 \
     ro.ota.version=$(shell date -u +%Y%m%d) \
-    ro.ota.manifest=http://romhut.com/roms/aosp-gemini-6-0/ota.xml
+    ro.ota.manifest=https://romhut.com/roms/aosp-gemini-6-0/ota.xml
 
 # Performance
 PRODUCT_COPY_FILES += \
