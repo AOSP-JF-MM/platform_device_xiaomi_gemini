@@ -261,11 +261,6 @@ PRODUCT_PACKAGES += \
 
 # QMI
 PRODUCT_PACKAGES += \
-    dsi_config.xml \
-    netmgr_config.xml \
-    qmi_config.xml
-
-PRODUCT_PACKAGES += \
     libjson
 
 # RIL
@@ -276,10 +271,6 @@ PRODUCT_PACKAGES += \
 # Sensors
 PRODUCT_PACKAGES += \
     sensors.msm8996
-
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/sensors/hals.conf:system/etc/sensors/hals.conf \
-    $(LOCAL_PATH)/configs/sensors/sensor_def_qcomdev.conf:system/etc/sensors/sensor_def_qcomdev.conf
 
 # Thermal
 PRODUCT_COPY_FILES += \
