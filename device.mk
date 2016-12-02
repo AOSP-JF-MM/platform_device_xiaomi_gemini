@@ -280,6 +280,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     libjson
 
+# Recovery
+PRODUCT_PACKAGES += \
+    librecovery_updater_gemini
+
 # RIL
 PRODUCT_PACKAGES += \
     librmnetctl \
