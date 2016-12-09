@@ -40,12 +40,20 @@ on init
 
     symlink /sdcard /storage/sdcard0
 
+    # Create cgroup mount point for memory
+    mkdir /sys/fs/cgroup/memory/bg 0750 root system
+    write /sys/fs/cgroup/memory/bg/memory.swappiness 140
+    write /sys/fs/cgroup/memory/bg/memory.move_charge_at_immigrate 1
+    chown root system /sys/fs/cgroup/memory/bg/tasks
+    chmod 0660 /sys/fs/cgroup/memory/bg/tasks
+
 on early-boot
     # Set RLIMIT_MEMLOCK to 64MB
     setrlimit 8 67108864 67108864
 
     # Set aggressive read ahead during boot up
     write /sys/block/dm-0/queue/read_ahead_kb 2048
+    write /sys/block/dm-1/queue/read_ahead_kb 2048
     write /sys/block/sda/queue/read_ahead_kb 2048
     write /sys/block/sde/queue/read_ahead_kb 2048
 
@@ -310,12 +318,6 @@ on post-fs-data
     # Create /data/time folder for time-services
     mkdir /data/time/ 0700 system system
 
-    mkdir /data/audio/ 0770 media audio
-
-    # Create a folder for audio delta files
-    mkdir /data/audio/acdbdata 0770 media audio
-    mkdir /data/audio/acdbdata/delta 0770 media audio
-
     setprop vold.post_fs_data_done 1
 
     # RIDL data
@@ -350,15 +352,31 @@ on post-fs-data
     chown radio radio /data/misc/radio/db_check_done
     chmod 0660 /data/misc/radio/db_check_done
 
+    # Create SWAP related dirs
+    mkdir /data/system/swap 0770 root system
+    chmod 2770 /data/system/swap
+
 service ssr_setup /system/bin/ssr_setup
     oneshot
     disabled
 
-service ss_ramdump /system/bin/subsystem_ramdump 2
-    class late_start
+service ss_ramdump /system/bin/subsystem_ramdump
+    class main
     user system
     group system
     disabled
+
+on property:persist.sys.ssr.enable_debug=*
+    write /sys/module/subsystem_restart/parameters/enable_debug ${persist.sys.ssr.enable_debug}
+
+on property:persist.sys.mba_boot_timeout=*
+    write /sys/module/pil_msa/parameters/pbl_mba_boot_timeout_ms ${persist.sys.mba_boot_timeout}
+
+on property:persist.sys.modem_auth_timeout=*
+    write /sys/module/pil_msa/parameters/modem_auth_timeout_ms ${persist.sys.modem_auth_timeout}
+
+on property:persist.sys.pil_proxy_timeout=*
+    write /sys/module/peripheral_loader/parameters/proxy_timeout_ms ${persist.sys.pil_proxy_timeout}
 
 on property:persist.sys.ssr.restart_level=*
     start ssr_setup
@@ -373,10 +391,11 @@ on property:persist.sys.ssr.enable_ramdumps=0
 
 on property:sys.boot_completed=1
     write /dev/kmsg "Boot completed "
-    # Reset the read_ahead_kb to 256
-    write /sys/block/dm-0/queue/read_ahead_kb 256
-    write /sys/block/sda/queue/read_ahead_kb 256
-    write /sys/block/sde/queue/read_ahead_kb 256
+    # Reset read ahead to 512kb
+    write /sys/block/dm-0/queue/read_ahead_kb 512
+    write /sys/block/dm-1/queue/read_ahead_kb 512
+    write /sys/block/sda/queue/read_ahead_kb 512
+    write /sys/block/sde/queue/read_ahead_kb 512
 
     # CPE fw_name used by sound trigger HAL
     chown media audio /sys/kernel/wcd_cpe0/fw_name
@@ -448,52 +467,13 @@ on property:wc_transport.start_hci=false
 service start_hci_filter /system/bin/wcnss_filter
     class late_start
     user bluetooth
-    group bluetooth qcom_diag sdcard_rw sdcard_r media_rw
-    disabled
-
-on property:wc_transport.start_root=true
-    start hci_filter_root
-
-on property:wc_transport.start_root=false
-    stop hci_filter_root
-
-service hci_filter_root /system/bin/wcnss_filter
-    class late_start
-    user bluetooth
-    group bluetooth qcom_diag system sdcard_rw sdcard_r media_rw
+    group bluetooth qcom_diag system wakelock
     disabled
 
 service config_bt_addr /system/bin/btnvtool -O
     class core
     user bluetooth
     group bluetooth radio
-    oneshot
-
-service hciattach /system/bin/sh /system/etc/init.qcom.bt.sh
-    class late_start
-    user bluetooth
-    group bluetooth net_bt_admin
-    disabled
-    oneshot
-
-on property:bluetooth.hciattach=true
-    start hciattach
-
-on property:bluetooth.hciattach=false
-    setprop bluetooth.status off
-
-service bt-dun /system/bin/dun-server /dev/smd7 /dev/rfcomm0
-    class late_start
-    user bluetooth
-    group bluetooth net_bt_admin inet
-    disabled
-    oneshot
-
-service bt-sap /system/bin/sapd 15
-    user bluetooth
-    group bluetooth net_bt_admin
-    class late_start
-    disabled
     oneshot
 
 service btsnoop /system/bin/btsnoop
@@ -595,8 +575,16 @@ service wigig_supplicant /system/bin/wpa_supplicant \
     disabled
     oneshot
 
-# FST Manager can be started by property_set("ctl.start", "fstman:<hostap ctrl iface>");
+# FST Manager with hostapd (softap) - all settings inside ini file
 service fstman /system/bin/fstman -B -ddd -c /data/misc/wifi/fstman.ini
+    user wifi
+    group wifi net_admin net_raw
+    class main
+    disabled
+    oneshot
+
+# FST Manager with supplicant - connect to supplicant socket
+service fstman_wlan0 /system/bin/fstman -B -ddd -c /data/misc/wifi/fstman.ini @android:wpa_wlan0
     user wifi
     group wifi net_admin net_raw
     class main
@@ -608,13 +596,6 @@ on property:netd.fstman.start=true
 
 on property:netd.fstman.start=false
     stop fstman
-
-service wifi_fccutild /system/bin/wifi_fccutild
-    user system
-    group system inet net_admin
-    socket wififccutild_server dgram 0660 system system
-    disabled
-    oneshot
 
 service cnss_diag /system/bin/cnss_diag -q -f
     class main
@@ -665,15 +646,6 @@ service hostapd /system/bin/hostapd /data/hostapd/hostapd.conf
     oneshot
     disabled
 
-service ds_fmc_appd /system/bin/ds_fmc_appd -p "rmnet0" -D
-    class late_start
-    group radio wifi inet
-    disabled
-    oneshot
-
-on property:persist.data.ds_fmc_app.mode=1
-    start ds_fmc_appd
-
 service ims_regmanager /system/bin/exe-ims-regmanagerprocessnative
     class late_start
     group net_bt_admin inet radio wifi
@@ -709,3 +681,6 @@ service qseeproxydaemon /system/vendor/bin/qseeproxydaemon
     class late_start
     user system
     group system
+
+on property:vold.decrypt=trigger_restart_min_framework
+    start time_daemon
