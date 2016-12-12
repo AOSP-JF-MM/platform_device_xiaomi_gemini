@@ -134,6 +134,11 @@ PRODUCT_PACKAGES += \
     ueventd.qcom.rc \
     init.qcom.sh
 
+# CMHW
+PRODUCT_PACKAGES += \
+    org.cyanogenmod.hardware \
+    org.cyanogenmod.hardware.xml
+
 # CNE
 PRODUCT_PACKAGES += \
     libcnefeatureconfig
