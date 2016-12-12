@@ -15,6 +15,9 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <!-- Application title -->
+    <string name="device_settings_app_name">Advanced settings</string>
+
     <!-- Button settings -->
     <string name="button_panel_title">Additional buttons</string>
     <string name="button_swap_title">Swap buttons</string>

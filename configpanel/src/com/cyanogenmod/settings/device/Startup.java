@@ -33,7 +33,6 @@ import android.os.ServiceManager;
 import android.os.SystemClock;
 import android.os.UserHandle;
 import android.preference.PreferenceManager;
-import android.service.gesture.IGestureService;
 import android.util.Log;
 import android.view.InputDevice;
 import android.view.InputEvent;
@@ -44,7 +43,7 @@ import java.io.File;
 
 import com.cyanogenmod.settings.device.utils.Constants;
 
-import org.cyanogenmod.internal.util.FileUtils;
+import com.android.internal.util.cm.FileUtils;
 
 public class Startup extends BroadcastReceiver {
 
@@ -53,8 +52,8 @@ public class Startup extends BroadcastReceiver {
     @Override
     public void onReceive(final Context context, final Intent intent) {
         final String action = intent.getAction();
-        if (cyanogenmod.content.Intent.ACTION_INITIALIZE_CM_HARDWARE.equals(action)) {
-
+        if (Intent.ACTION_BOOT_COMPLETED.equals(action)
+                || Intent.ACTION_PRE_BOOT_COMPLETED.equals(action)) {
             // Disable button settings if needed
             if (!hasButtonProcs()) {
                 disableComponent(context, ButtonSettings.class.getName());
