@@ -172,6 +172,7 @@ TARGET_RECOVERY_UI_LIB := librecovery_ui_msm
 TARGET_RECOVERY_UPDATER_LIBS := librecovery_updater_msm
 
 # RIL
+BOARD_RIL_CLASS := ../../../$(DEVICE_PATH)/ril
 PROTOBUF_SUPPORTED := true
 TARGET_RIL_VARIANT := caf
 
