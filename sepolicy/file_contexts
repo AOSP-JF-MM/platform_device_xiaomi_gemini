@@ -38,5 +38,10 @@
 # Init
 /system/bin/init\.power\.sh                                         u:object_r:init_power_exec:s0
 
+# debugfs
+/sys/kernel/debug/rpm_stats                      u:object_r:debugfs_rpm:s0
+/sys/kernel/debug/rpm_master_stats               u:object_r:debugfs_rpm:s0
+/sys/kernel/debug/kgsl(/.*)?                     u:object_r:debugfs_kgsl:s0
+
 # files in /vendor
 /system/vendor/bin/hw/android\.hardware\.dumpstate@1\.0-service.msm8996          u:object_r:hal_dumpstate_impl_exec:s0
