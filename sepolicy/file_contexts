@@ -17,3 +17,9 @@
 
 # Binaries
 /system/bin/readmac                   u:object_r:readmac_exec:s0
+
+# Init
+/system/bin/init\.power\.sh                                         u:object_r:init_power_exec:s0
+
+# Power management
+/sys/module/lpm_levels/parameters(/.*)?                             u:object_r:sysfs_power_management:s0
