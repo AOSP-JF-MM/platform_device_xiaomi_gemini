@@ -303,6 +303,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     libshims_ims
 
+# Charger images
+PRODUCT_PACKAGES += \
+    charger_res_images
+
 # WiFi
 PRODUCT_PACKAGES += \
     libqsap_sdk \
