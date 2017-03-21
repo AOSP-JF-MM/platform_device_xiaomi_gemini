@@ -46,9 +46,6 @@ on boot
     chown system system /dev/cpuset/camera-daemon/tasks
     chmod 0664 /dev/cpuset/camera-daemon/tasks
 
-    # Enable sched boost
-    write /proc/sys/kernel/sched_boost 1
-
 on charger
     wait /dev/block/bootdevice/by-name/system
     mount ext4 /dev/block/bootdevice/by-name/system /system ro barrier=1
@@ -117,18 +114,8 @@ on enable-low-power
     write /sys/devices/soc/soc:qcom,bcl/hotplug_soc_mask 8
     write /sys/devices/soc/soc:qcom,bcl/mode "enable"
 
-    # Input boost config
-    write /sys/module/cpu_boost/parameters/input_boost_freq "0:1324800 2:1324800"
-    write /sys/module/cpu_boost/parameters/input_boost_ms 40
-
-    # Set big.LITTLE scheduler parameters
-    write /proc/sys/kernel/sched_boost 0
-    write /proc/sys/kernel/sched_downmigrate 90
-    write /proc/sys/kernel/sched_upmigrate 95
-    write /proc/sys/kernel/sched_freq_inc_notify 400000
-    write /proc/sys/kernel/sched_freq_dec_notify 400000
-    write /proc/sys/kernel/sched_spill_nr_run 3
-    write /proc/sys/kernel/sched_init_task_load 100
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor "sched"
+    write /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor "sched"
 
     # Enable bus-dcvs
     write /sys/class/devfreq/soc:qcom,cpubw/governor "bw_hwmon"
@@ -166,7 +153,6 @@ on enable-low-power
 
 on class_start:late_start
     trigger enable-low-power
-    write /proc/sys/kernel/sched_boost 0
     # update cpusets now that boot is complete and we want better load balancing
     write /dev/cpuset/top-app/cpus 0-3
     write /dev/cpuset/foreground/boost/cpus 0-2
@@ -175,7 +161,7 @@ on class_start:late_start
     write /dev/cpuset/system-background/cpus 0-2
 
 on property:dev.bootcomplete=1
-    setprop sys.io.scheduler "bfq"
+    setprop sys.io.scheduler "cfq"
 
     # Update cpusets now that boot is complete and we want better load balancing
     write /dev/cpuset/top-app/cpus 0-3
