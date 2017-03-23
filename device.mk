@@ -128,7 +128,7 @@ PRODUCT_PACKAGES += \
 
 # Device config scripts
 PRODUCT_PACKAGES += \
-    init.leds.sh \
+    init.panel.sh \
     init.qcom.bt.sh
 
 # Device init scripts
