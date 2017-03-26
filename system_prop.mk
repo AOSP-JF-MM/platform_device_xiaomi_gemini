@@ -3,15 +3,16 @@ PRODUCT_PROPERTY_OVERRIDES += \
     af.fast_track_multiplier=1 \
     audio_hal.period_size=192 \
     audio.deep_buffer.media=true \
+    audio.heap.size.multiplier=7 \
     audio.offload.buffer.size.kb=64 \
     audio.offload.gapless.enabled=true \
     audio.offload.min.duration.secs=15 \
     audio.offload.multiaac.enable=true \
-    audio.offload.multiple.enabled=true \
+    audio.offload.multiple.enabled=false \
     audio.offload.passthrough=false \
     audio.offload.pcm.16bit.enable=true \
     audio.offload.pcm.24bit.enable=true \
-    audio.offload.track.enable=false \
+    audio.offload.track.enable=true \
     audio.offload.video=true \
     audio.safx.pbe.enabled=true \
     audio.parser.ip.buffer.size=262144 \
@@ -49,7 +50,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Camera
 PRODUCT_PROPERTY_OVERRIDES += \
-    persist.camera.HAL3.enabled=1 \
     persist.camera.gyro.disable=0 \
     persist.camera.imglib.fddsp=1
 
@@ -91,16 +91,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Graphics
 PRODUCT_PROPERTY_OVERRIDES += \
-    debug.egl.hw=1 \
     debug.gralloc.enable_fb_ubwc=1 \
-    debug.sf.hw=1 \
-    dev.pm.dyn_samplingrate=1 \
-    persist.demo.hdmirotationlock=false \
     persist.hwc.enable_vds=1 \
-    persist.sys.wfd.virtual=0 \
     ro.opengles.version=196610 \
     ro.sf.lcd_density=480 \
-    sdm.debug.disable_rotator_split=1 \
     sdm.perf_hint_window=50
 
 # GPS
@@ -115,10 +109,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.dbg.vt_avail_ovr=1 \
     persist.radio.NO_STAPA=1 \
     persist.radio.VT_HYBRID_ENABLE=1
-
-# Media
-PRODUCT_PROPERTY_OVERRIDES += \
-    media.aac_51_output_enabled=true
 
 # NFC
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -179,6 +169,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Storage
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.sys.sdcardfs=true
+
+# Tethering
+PRODUCT_PROPERTY_OVERRIDES += \
+    net.tethering.noprovisioning=true
 
 # TimeService
 PRODUCT_PROPERTY_OVERRIDES += \
