@@ -799,6 +799,18 @@ static int get_platform_low_power_stats(struct power_module *module,
     return 0;
 }
 
+#ifdef TAP_TO_WAKE_NODE
+void set_dt2w(struct power_module *module, feature_t feature, int state)
+{
+    char tmp_str[NODE_MAX];
+    if (feature == POWER_FEATURE_DOUBLE_TAP_TO_WAKE) {
+        snprintf(tmp_str, NODE_MAX, "%d", state);
+        sysfs_write(TAP_TO_WAKE_NODE, tmp_str);
+        return;
+    }
+}
+#endif
+
 struct power_module HAL_MODULE_INFO_SYM = {
     .common = {
         .tag = HARDWARE_MODULE_TAG,
@@ -815,5 +827,8 @@ struct power_module HAL_MODULE_INFO_SYM = {
     .setInteractive = set_interactive,
     .get_number_of_platform_modes = get_number_of_platform_modes,
     .get_platform_low_power_stats = get_platform_low_power_stats,
-    .get_voter_list = get_voter_list
+    .get_voter_list = get_voter_list,
+#ifdef TAP_TO_WAKE_NODE
+    .setFeature = set_dt2w
+#endif
 };
