@@ -22,6 +22,8 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.SharedPreferences;
+import android.support.v7.preference.PreferenceManager;
 import android.util.Log;
 
 import java.io.File;
@@ -37,6 +39,8 @@ public class Startup extends BroadcastReceiver {
         final String action = intent.getAction();
         if (Intent.ACTION_BOOT_COMPLETED.equals(action)
                 || Intent.ACTION_PRE_BOOT_COMPLETED.equals(action)) {
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+
             // Disable button settings if needed
             if (!hasButtonProcs()) {
                 disableComponent(context, ButtonSettingsActivity.class.getName());
@@ -58,6 +62,12 @@ public class Startup extends BroadcastReceiver {
                             " failed while restoring saved preference values");
                     }
                 }
+
+                // Send initial broadcasts
+                final boolean shouldEnablePocketMode =
+                        prefs.getBoolean(Constants.FP_WAKEUP_KEY, false) &&
+                        prefs.getBoolean(Constants.FP_POCKETMODE_KEY, false);
+                Utils.broadcastCustIntent(context, shouldEnablePocketMode);
             }
         }
     }
