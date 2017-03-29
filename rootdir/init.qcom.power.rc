@@ -53,6 +53,9 @@ on boot
     chown system system /dev/cpuset/camera-daemon/tasks
     chmod 0664 /dev/cpuset/camera-daemon/tasks
 
+    # Enable sched boost
+    write /proc/sys/kernel/sched_boost 1
+
 on charger
     wait /dev/block/bootdevice/by-name/system
     mount ext4 /dev/block/bootdevice/by-name/system /system ro barrier=1
@@ -67,32 +70,23 @@ on charger
     write /sys/module/msm_thermal/parameters/enabled "N"
     start hvdcp_opti
 
-on enable-low-power
-    # Set CFQ I/O scheduler
-    setprop sys.io.scheduler "cfq"
-
-    # Set idle GPU to 133 MHz
-    write /sys/class/kgsl/kgsl-3d0/default_pwrlevel 6
-
-    # Set permissions for dumpstate nodes
-    chmod 0644 /d/rpm_stats
-    chmod 0644 /d/rpm_master_stats
-
-    # Set perfd properties
-    setprop sys.post_boot.parsed 1
-
-    # Start IO prefetcher service
-    start iop
-
-on class_start:late_start
-    trigger enable-low-power
-
-    # Update cpusets now that boot is complete and we want better load balancing
+on property:sys.boot_completed=1
+    # Disable boosting
+    write /proc/sys/kernel/sched_boost 0
+    # update cpusets now that boot is complete and we want better load balancing
     write /dev/cpuset/top-app/cpus 0-3
     write /dev/cpuset/foreground/boost/cpus 0-2
     write /dev/cpuset/foreground/cpus 0-2
     write /dev/cpuset/background/cpus 0
     write /dev/cpuset/system-background/cpus 0-2
+    # Set CFQ I/O scheduler
+    setprop sys.io.scheduler "cfq"
+    # Set idle GPU to 133 Mhz
+    write /sys/class/kgsl/kgsl-3d0/default_pwrlevel 6
+    # Set permissions for dumpstate nodes
+    chmod 0644 /d/rpm_stats
+    chmod 0644 /d/rpm_master_stats
+
 
 service charger /charger
     class charger
@@ -122,7 +116,5 @@ service iop /system/bin/iop
 service perfd /system/vendor/bin/perfd
     class main
     user root
-    group root readproc system
-    disabled
-    socket perfd seqpacket 0666 root system
+    group root system
     writepid /dev/cpuset/system-background/tasks
