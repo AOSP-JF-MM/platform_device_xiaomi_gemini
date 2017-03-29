@@ -22,6 +22,7 @@
           android:versionName="2.4" >
 
     <uses-permission android:name="android.permission.INJECT_EVENTS"/>
+    <protected-broadcast android:name="com.cyanogenmod.settings.device.CUST_UPDATE" />
 
     <uses-sdk
         android:minSdkVersion="24" />
