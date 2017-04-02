@@ -79,8 +79,8 @@ on property:sys.boot_completed=1
     write /dev/cpuset/foreground/cpus 0-2
     write /dev/cpuset/background/cpus 0
     write /dev/cpuset/system-background/cpus 0-2
-    # Set CFQ I/O scheduler
-    setprop sys.io.scheduler "cfq"
+    # Set BFQ I/O scheduler
+    setprop sys.io.scheduler "bfq"
     # Set idle GPU to 133 Mhz
     write /sys/class/kgsl/kgsl-3d0/default_pwrlevel 6
     # Set permissions for dumpstate nodes
