@@ -85,6 +85,12 @@ on early-boot
     write /sys/bus/msm_subsys/devices/subsys4/restart_level "related"
     write /sys/bus/msm_subsys/devices/subsys5/restart_level "related"
 
+    # Access permission for secure touch
+    chmod 0660 /sys/devices/soc/75ba000.i2c/i2c-12/12-0020/secure_touch_enable
+    chmod 0440 /sys/devices/soc/75ba000.i2c/i2c-12/12-0020/secure_touch
+    chown system drmrpc /sys/devices/soc/75ba000.i2c/i2c-12/12-0020/secure_touch_enable
+    chown system drmrpc /sys/devices/soc/75ba000.i2c/i2c-12/12-0020/secure_touch
+
 on boot
     # from init.power.sh
     # disable thermal hotplug to switch governor
@@ -155,12 +161,6 @@ on boot
     chown system system /sys/devices/soc/soc:fpc_fpc1020/enable_key_events
     chown system system /sys/devices/soc/soc:fpc_fpc1020/enable_wakeup
     chown system system /sys/devices/soc/soc:fpc_fpc1020/proximity_state
-
-    # Access permission for secure touch
-    chmod 0660 /sys/devices/soc/75ba000.i2c/i2c-12/12-0020/secure_touch_enable
-    chmod 0440 /sys/devices/soc/75ba000.i2c/i2c-12/12-0020/secure_touch
-    chown system drmrpc /sys/devices/soc/75ba000.i2c/i2c-12/12-0020/secure_touch_enable
-    chown system drmrpc /sys/devices/soc/75ba000.i2c/i2c-12/12-0020/secure_touch
 
     # Access permission for smartPA
     chmod 0666 /dev/i2c-3
