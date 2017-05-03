@@ -205,17 +205,6 @@ on boot
     chmod 0664 /sys/class/graphics/fb0/mode
     chmod 0664 /sys/class/graphics/fb0/msm_cmd_autorefresh_en
 
-    # SSC/SLPI sensors
-    mkdir /persist/sensors
-    chmod 0775 /persist/sensors
-    chown sensors sensors /persist/sensors
-    chmod 0664 /persist/sensors/sensors_settings
-    chown system root /persist/sensors/sensors_settings
-    chmod 0600 /persist/PRSensorData.txt
-    chown system system /persist/PRSensorData.txt
-    chmod 0600 /persist/PSensor3cm_ct.txt
-    chown system system /persist/PSensor3cm_ct.txt
-
     # Remove SUID bit for iproute2 ip tool
     chmod 0755 /system/bin/ip
 
@@ -359,9 +348,6 @@ on post-fs-data
     # Create directory for FOTA
     mkdir /data/fota 0771
     chown system system /data/fota
-
-    # Create directory for SSC/SLPI sensors
-    mkdir /data/misc/sensors 0775 system system
 
     # Create directory for hostapd
     mkdir /data/hostapd 0770 system wifi
@@ -523,10 +509,16 @@ service qti /system/vendor/bin/qti
     group radio net_raw qcom_diag usb net_admin
     writepid /dev/cpuset/system-background/tasks
 
+service sensor-sh /system/bin/sh /init.qcom.sensors.sh
+    class main
+    user root
+    oneshot
+
 service sensors /system/bin/sensors.qcom
-    class core
+    class main
     user root
     group root
+    disabled
     writepid /dev/cpuset/system-background/tasks
 
 on property:ro.use_data_netmgrd=false
