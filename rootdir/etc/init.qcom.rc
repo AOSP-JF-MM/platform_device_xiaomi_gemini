@@ -247,6 +247,9 @@ on fs
     swapon_all fstab.qcom
 
 on post-fs-data
+    chown system system /dev/sysmatdrv
+    chmod 0660 /dev/sysmatdrv
+
     # Create directories for fingerprint
     mkdir /data/misc/stargate 0770 system system
     mkdir /data/misc/stargate/bg_estimation 0770 system system
