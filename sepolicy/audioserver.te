@@ -1,3 +1,7 @@
+allow audioserver persist_file:dir search;
+
+r_dir_file(audioserver, persist_usf_cal_file)
+
 # communicate with perfd
 allow audioserver perfd:unix_stream_socket connectto;
 allow audioserver mpctl_data_file:dir search;
