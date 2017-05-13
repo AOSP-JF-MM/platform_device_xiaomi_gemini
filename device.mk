@@ -128,6 +128,7 @@ PRODUCT_PACKAGES += \
 
 # Device config scripts
 PRODUCT_PACKAGES += \
+    init.cnss.sh \
     init.panel.sh
 
 # Consumerir
