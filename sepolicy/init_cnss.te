@@ -1,6 +1,6 @@
 type init_cnss, domain, domain_deprecated;
 
-init_daemon_domain(init_cnss)
+# init_daemon_domain(init_cnss)
 
 # Shell script needs to execute /system/bin/sh
 allow init_cnss shell_exec:file { entrypoint r_file_perms };
