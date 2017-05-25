@@ -255,10 +255,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.ota.version=$(shell date -u +%Y%m%d) \
     ro.ota.manifest=https://romhut.com/roms/aosp-gemini-oreo/ota.xml
 
-# Power
-PRODUCT_PACKAGES += \
-    power.msm8996
-
 # QMI
 PRODUCT_PACKAGES += \
     libjson \

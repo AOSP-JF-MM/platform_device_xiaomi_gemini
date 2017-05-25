@@ -29,9 +29,6 @@
 /system/bin/readfem                   u:object_r:readfem_exec:s0
 /system/bin/readmac                   u:object_r:readmac_exec:s0
 
-# Shell scripts
-#/system/bin/init\.panel\.sh           u:object_r:init_panel_exec:s0
-
 # CPU tunable for EAS
 /sys/devices/system/cpu/cpu[0-3]/cpufreq/schedutil(/.*)?            u:object_r:sysfs_devices_system_cpu:s0
 
@@ -45,3 +42,4 @@
 
 # files in /vendor
 /system/vendor/bin/hw/android\.hardware\.dumpstate@1\.0-service.msm8996          u:object_r:hal_dumpstate_impl_exec:s0
+/system/vendor/bin/hw/android\.hardware\.power@1\.1-service.marlin          u:object_r:hal_power_default_exec:s0
