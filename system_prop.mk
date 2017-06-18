@@ -39,14 +39,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.btconfig.if=uart \
     ro.btconfig.vendor=qcom \
     ro.btconfig.chip=QCA6164 \
-    ro.btconfig.dev=/dev/ttyHS0 \
-    ro.qualcomm.bluetooth.ftp=true \
-    ro.qualcomm.bluetooth.hfp=true \
-    ro.qualcomm.bluetooth.hsp=true \
-    ro.qualcomm.bluetooth.map=true \
-    ro.qualcomm.bluetooth.nap=true \
-    ro.qualcomm.bluetooth.opp=true \
-    ro.qualcomm.bluetooth.pbap=true
+    ro.btconfig.dev=/dev/ttyHS0
 
 # Camera
 PRODUCT_PROPERTY_OVERRIDES += \
