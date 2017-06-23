@@ -292,7 +292,6 @@ on fs
     symlink /dev/block/platform/soc/${ro.boot.bootdevice} /dev/block/bootdevice
 
     mount_all fstab.qcom
-    swapon_all fstab.qcom
 
 on post-fs-data
     chown system system /dev/sysmatdrv
@@ -448,6 +447,8 @@ on property:sys.post_boot.parsed=1
     start perfd
 
 on property:sys.boot_completed=1
+    # Enable ZRAM on boot_complete
+    swapon_all fstab.qcom
     start power_sh
     # Disable boosting
     write /proc/sys/kernel/sched_boost 0
