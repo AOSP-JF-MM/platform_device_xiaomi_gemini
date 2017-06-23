@@ -129,7 +129,6 @@ PRODUCT_PACKAGES += \
 
 # Device config scripts
 PRODUCT_PACKAGES += \
-    init.cnss.sh \
     init.panel.sh
 
 # Consumerir
@@ -308,6 +307,7 @@ PRODUCT_PACKAGES += \
     libQWiFiSoftApCfg \
     libwpa_client \
     hostapd \
+    readfem \
     readmac \
     wpa_supplicant \
     wpa_supplicant.conf
