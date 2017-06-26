@@ -273,10 +273,9 @@ PRODUCT_PACKAGES += \
     libstagefrighthw
 
 # OTA Updates
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.ota.romname=AOSP-GEMINI-7.1 \
-    ro.ota.version=$(shell date -u +%Y%m%d) \
-    ro.ota.manifest=https://romhut.com/roms/aosp-gemini-7-1-309/ota.xml
+PRODUCT_PACKAGES += \
+    AEXOTA \
+    libbypass
 
 # Power
 PRODUCT_PACKAGES += \
