@@ -549,4 +549,10 @@
     <!-- If enabled, capacitive keys will only light up when pressed.
          Otherwise, the buttons will light up whenever the user interacts with the device -->
     <bool name="config_buttonLightOnKeypressOnly">true</bool>
+
+    <!-- Control the behavior when the user panic presses the back button.
+            0 - Nothing
+            1 - Go to home
+    -->
+    <integer name="config_backPanicBehavior">1</integer>
 </resources>
