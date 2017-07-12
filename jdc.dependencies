@@ -8,7 +8,7 @@
     "repository": "AOSP-JF-MM/proprietary_vendor_xiaomi",
     "target_path": "vendor/xiaomi",
     "branch":      "aosp-7.1.2"
-  }
+  },
   {
     "repository": "AOSP-JF-MM/platform_packages_resources_devicesettings",
     "target_path": "packages/resources/devicesettings",
