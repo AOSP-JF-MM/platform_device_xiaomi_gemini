@@ -224,10 +224,6 @@ PRODUCT_PACKAGES += \
     ethertypes \
     libebtc
 
-# KeyHandler
-PRODUCT_PACKAGES += \
-    com.cyanogenmod.keyhandler
-
 # Lights
 PRODUCT_PACKAGES += \
     lights.msm8996
