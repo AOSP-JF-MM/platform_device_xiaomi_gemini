@@ -57,6 +57,7 @@ on init
     chmod 0660 /sys/fs/cgroup/memory/bg/tasks
 
     write /sys/module/qpnp_rtc/parameters/poweron_alarm 1
+    write /sys/module/lpm_levels/parameters/sleep_disabled Y
 
 on late-fs
     # boot time fs tune
@@ -85,8 +86,36 @@ on early-boot
     write /sys/bus/msm_subsys/devices/subsys5/restart_level "related"
 
 on boot
-    # Bring up CPUs
-    exec - root root system -- /system/bin/init.power.sh
+    # from init.power.sh
+    # disable thermal hotplug to switch governor
+    write /sys/module/msm_thermal/core_control/enabled 0
+
+    # bring back main cores CPU 0,2
+    write /sys/devices/system/cpu/cpu0/online 1
+    write /sys/devices/system/cpu/cpu2/online 1
+
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq 300000
+
+    # EAS: Capping the max frequency of silver core to 1.6GHz
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq 1593600
+
+    write /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq 300000
+
+    # if EAS is present, switch to sched governor (no effect if not EAS)
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor "schedutil"
+    write /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor "schedutil"
+
+    # re-enable thermal hotplug
+    write /sys/module/msm_thermal/core_control/enabled 1
+
+    # Setting b.L scheduler parameters
+    write /proc/sys/kernel/sched_migration_fixup 1
+    write /proc/sys/kernel/sched_upmigrate 95
+    write /proc/sys/kernel/sched_downmigrate 90
+    write /proc/sys/kernel/sched_freq_inc_notify 400000
+    write /proc/sys/kernel/sched_freq_dec_notify 400000
+    write /proc/sys/kernel/sched_spill_nr_run 3
+    write /proc/sys/kernel/sched_init_task_load 100
 
     # Add a cpuset for the camera daemon
     # we want all cores for camera
@@ -255,6 +284,7 @@ on charger
     write /sys/devices/system/cpu/cpu2/online 0
     write /sys/devices/system/cpu/cpu3/online 0
     write /sys/module/msm_thermal/parameters/enabled "N"
+    write /sys/module/lpm_levels/parameters/sleep_disabled N
     start hvdcp_opti
 
 on fs
@@ -413,7 +443,11 @@ on post-fs-data
     mkdir /data/system/swap 0770 root system
     chmod 2770 /data/system/swap
 
+on property:sys.post_boot.parsed=1
+    start perfd
+
 on property:sys.boot_completed=1
+    start power_sh
     # Disable boosting
     write /proc/sys/kernel/sched_boost 0
     # Update foreground and background cpusets
@@ -442,6 +476,8 @@ on property:sys.boot_completed=1
 
     # Set RT bandwidth
     copy /dev/cpuctl/cpu.rt_runtime_us /dev/cpuctl/bg_non_interactive/cpu.rt_runtime_us
+
+    write /sys/module/lpm_levels/parameters/sleep_disabled N
 
 on property:vold.decrypt=trigger_restart_framework
     start config_bt_addr
@@ -760,6 +796,7 @@ service perfd /system/vendor/bin/perfd
     user root
     group root system
     writepid /dev/cpuset/system-background/tasks
+    disabled
 
 on property:init.svc.surfaceflinger=stopped
     stop ppd

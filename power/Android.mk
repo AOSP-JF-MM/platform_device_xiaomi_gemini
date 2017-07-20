@@ -43,6 +43,7 @@ ifneq ($(TARGET_TAP_TO_WAKE_NODE),)
 endif
 
 LOCAL_SHARED_LIBRARIES := \
+    libbase \
     libcutils \
     libhidlbase \
     libhidltransport \
