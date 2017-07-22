@@ -298,6 +298,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     libshims_ims
 
+# SnapDragon Browser
+PRODUCT_PACKAGES += \
+    SnapBrowser
+
 # WiFi
 PRODUCT_PACKAGES += \
     libqsap_sdk \
