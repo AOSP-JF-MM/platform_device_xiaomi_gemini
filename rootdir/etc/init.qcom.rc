@@ -246,6 +246,9 @@ on boot
     # Allow access for CCID command/response timeout configuration
     chown system system /sys/module/ccid_bridge/parameters/bulk_msg_timeout
 
+    # Allow access for WLAN firmware
+    chown system system /sys/module/cnss_common/parameters/bdwlan_file
+
 on charger
     wait /dev/block/bootdevice/by-name/system
     mount ext4 /dev/block/bootdevice/by-name/system /system ro barrier=1
@@ -602,7 +605,7 @@ service cnss-daemon /system/bin/cnss-daemon -n -l
 
 service cnss-sh /system/bin/init.cnss.sh
     class core
-    user root
+    user system
     oneshot
 
 on property:sys.shutdown.requested=*
