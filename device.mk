@@ -20,9 +20,6 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 $(call inherit-product-if-exists, vendor/xiaomi/gemini/gemini-vendor.mk)
 $(call inherit-product-if-exists, vendor/xiaomi/msm8996-common/msm8996-common-vendor.mk)
 
-# System properties
--include $(LOCAL_PATH)/system_prop.mk
-
 # Overlays
 DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
 
