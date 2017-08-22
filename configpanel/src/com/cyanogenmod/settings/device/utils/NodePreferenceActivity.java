@@ -15,51 +15,48 @@
  * limitations under the License.
  */
 
-package com.cyanogenmod.settings.device;
+package com.cyanogenmod.settings.device.utils;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v14.preference.PreferenceFragment;
-import android.support.v14.preference.SwitchPreference;
-import android.support.v7.preference.ListPreference;
-import android.support.v7.preference.Preference;
-import android.support.v7.preference.Preference.OnPreferenceChangeListener;
-import android.support.v7.preference.PreferenceManager;
+import android.preference.Preference;
+import android.preference.Preference.OnPreferenceChangeListener;
+import android.preference.PreferenceActivity;
+import android.preference.ListPreference;
+import android.preference.SwitchPreference;
 import android.text.TextUtils;
 import android.view.MenuItem;
 
 import java.io.File;
 
-import com.android.settingslib.drawer.SettingsDrawerActivity;
-
 import com.android.internal.util.cm.FileUtils;
+import com.android.internal.util.cm.ScreenType;
 
-public class ButtonSettingsFragment extends PreferenceFragment
+public class NodePreferenceActivity extends PreferenceActivity
         implements OnPreferenceChangeListener {
 
     @Override
-    public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
-        addPreferencesFromResource(R.xml.button_panel);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        getActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     @Override
-    public void onResume() {
+    protected void onResume() {
         super.onResume();
         updatePreferencesBasedOnDependencies();
+
+        // If running on a phone, remove padding around the listview
+        if (!ScreenType.isTablet(this)) {
+            getListView().setPadding(0, 0, 0, 0);
+        }
     }
 
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
-
         String node = Constants.sBooleanNodePreferenceMap.get(preference.getKey());
         if (!TextUtils.isEmpty(node)) {
             Boolean value = (Boolean) newValue;
             FileUtils.writeLine(node, value ? "1" : "0");
-            if (Constants.FP_WAKEUP_KEY.equals(preference.getKey())) {
-                value &= prefs.getBoolean(Constants.FP_POCKETMODE_KEY, false);
-                Utils.broadcastCustIntent(getContext(), value);
-            }
             return true;
         }
         node = Constants.sStringNodePreferenceMap.get(preference.getKey());
@@ -67,12 +64,6 @@ public class ButtonSettingsFragment extends PreferenceFragment
             FileUtils.writeLine(node, (String) newValue);
             return true;
         }
-
-        if (Constants.FP_POCKETMODE_KEY.equals(preference.getKey())) {
-            Utils.broadcastCustIntent(getContext(), (Boolean) newValue);
-            return true;
-        }
-
         return false;
     }
 
@@ -103,10 +94,17 @@ public class ButtonSettingsFragment extends PreferenceFragment
                 l.setEnabled(false);
             }
         }
+    }
 
-        // Initialize other preferences whose keys are not associated with nodes
-        SwitchPreference b = (SwitchPreference) findPreference(Constants.FP_POCKETMODE_KEY);
-        b.setOnPreferenceChangeListener(this);
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+        // Respond to the action bar's Up/Home button
+        case android.R.id.home:
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void updatePreferencesBasedOnDependencies() {
@@ -118,7 +116,7 @@ public class ButtonSettingsFragment extends PreferenceFragment
                 String dependencyNodeValue = FileUtils.readOneLine(dependencyNode);
                 boolean shouldSetEnabled = dependencyNodeValue.equals(
                         Constants.sNodeDependencyMap.get(pref)[1]);
-                Utils.updateDependentPreference(getContext(), b, pref, shouldSetEnabled);
+                Constants.updateDependentPreference(this, b, pref, shouldSetEnabled);
             }
         }
     }

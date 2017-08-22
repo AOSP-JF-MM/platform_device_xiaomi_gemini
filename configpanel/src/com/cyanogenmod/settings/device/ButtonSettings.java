@@ -1,6 +1,5 @@
 /*
  * Copyright (C) 2016 The CyanogenMod Project
- *           (C) 2017 The LineageOS Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,18 +16,16 @@
 
 package com.cyanogenmod.settings.device;
 
-import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.os.Bundle;
 
-import com.android.settingslib.drawer.SettingsDrawerActivity;
+import com.cyanogenmod.settings.device.utils.NodePreferenceActivity;
 
-public class ButtonSettingsActivity extends SettingsDrawerActivity {
+import com.android.internal.util.cm.ScreenType;
 
-    protected void onCreate(Bundle savedInstanceState) {
+public class ButtonSettings extends NodePreferenceActivity {
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        getFragmentManager().beginTransaction().replace(R.id.content_frame,
-                new ButtonSettingsFragment()).commit();
+        addPreferencesFromResource(R.xml.button_panel);
     }
 }

@@ -1,6 +1,5 @@
 /*
  * Copyright (C) 2016 The CyanogenMod Project
- *           (C) 2017 The LineageOS Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,16 +16,32 @@
 
 package com.cyanogenmod.settings.device;
 
+import android.app.PendingIntent;
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothManager;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.content.SharedPreferences;
-import android.support.v7.preference.PreferenceManager;
+import android.content.pm.PackageManager;
+import android.hardware.input.InputManager;
+import android.os.Build;
+import android.os.IBinder;
+import android.os.RemoteException;
+import android.os.ServiceManager;
+import android.os.SystemClock;
+import android.os.UserHandle;
+import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.InputDevice;
+import android.view.InputEvent;
+import android.view.KeyCharacterMap;
+import android.view.KeyEvent;
 
 import java.io.File;
+
+import com.cyanogenmod.settings.device.utils.Constants;
 
 import com.android.internal.util.cm.FileUtils;
 
@@ -35,41 +50,41 @@ public class Startup extends BroadcastReceiver {
     private static final String TAG = Startup.class.getSimpleName();
 
     @Override
-    public void onReceive(Context context, Intent intent) {
+    public void onReceive(final Context context, final Intent intent) {
         final String action = intent.getAction();
         if (Intent.ACTION_BOOT_COMPLETED.equals(action)
                 || Intent.ACTION_PRE_BOOT_COMPLETED.equals(action)) {
-            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-
             // Disable button settings if needed
             if (!hasButtonProcs()) {
-                disableComponent(context, ButtonSettingsActivity.class.getName());
+                disableComponent(context, ButtonSettings.class.getName());
             } else {
-                enableComponent(context, ButtonSettingsActivity.class.getName());
+                enableComponent(context, ButtonSettings.class.getName());
 
                 // Restore nodes to saved preference values
                 for (String pref : Constants.sButtonPrefKeys) {
-                    String node, value;
+                    String value;
+                    String node;
                     if (Constants.sStringNodePreferenceMap.containsKey(pref)) {
+                        value = Constants.getPreferenceString(context, pref);
                         node = Constants.sStringNodePreferenceMap.get(pref);
-                        value = Utils.getPreferenceString(context, pref);
                     } else {
+                        value = Constants.isPreferenceEnabled(context, pref) ?
+                                "1" : "0";
                         node = Constants.sBooleanNodePreferenceMap.get(pref);
-                        value = Utils.isPreferenceEnabled(context, pref) ? "1" : "0";
                     }
                     if (!FileUtils.writeLine(node, value)) {
                         Log.w(TAG, "Write to node " + node +
                             " failed while restoring saved preference values");
                     }
                 }
-
-                // Send initial broadcasts
-                final boolean shouldEnablePocketMode =
-                        prefs.getBoolean(Constants.FP_WAKEUP_KEY, false) &&
-                        prefs.getBoolean(Constants.FP_POCKETMODE_KEY, false);
-                Utils.broadcastCustIntent(context, shouldEnablePocketMode);
             }
         }
+    }
+
+    private void sendInputEvent(InputEvent event) {
+        InputManager inputManager = InputManager.getInstance();
+        inputManager.injectInputEvent(event,
+                InputManager.INJECT_INPUT_EVENT_MODE_WAIT_FOR_FINISH);
     }
 
     static boolean hasButtonProcs() {
