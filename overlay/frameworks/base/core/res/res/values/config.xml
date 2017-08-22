@@ -146,20 +146,11 @@
     <!-- Is the notification LED intrusive? Used to decide if there should be a disable option -->
     <bool name="config_intrusiveNotificationLed">true</bool>
 
-    <!-- Does the notification LED support multiple colors?
-         Used to decide if the user can change the colors -->
-    <!--<bool name="config_multiColorNotificationLed">true</bool>-->
-
     <!-- Is the battery LED intrusive? Used to decide if there should be a disable option -->
-    <!--<bool name="config_intrusiveBatteryLed">true</bool>-->
+    <bool name="config_intrusiveBatteryLed">true</bool>
 
-    <!-- Does the battery LED support multiple colors?
-         Used to decide if the user can change the colors -->
-    <!--<bool name="config_multiColorBatteryLed">true</bool>-->
-
-    <!-- Do the battery/notification LEDs support pulsing?
-         Used to decide if we show pulse settings -->
-    <!--<bool name="config_ledCanPulse">true</bool>-->
+    <!-- Default value for LED on time when the battery is low on charge in miliseconds -->
+    <integer name="config_notificationsBatteryLedOn">2000</integer>
 
     <!-- List of regexpressions describing the interface (if any) that represent tetherable
          USB interfaces.  If the device doesn't want to support tething over USB this should
@@ -297,9 +288,6 @@
     <!-- Boolean indicating whether the wifi chipset has background scan support -->
     <bool translatable="false" name="config_wifi_background_scan_support">true</bool>
 
-    <!-- Boolean indicating autojoin will prefer 5GHz and choose 5GHz BSSIDs -->
-    <!-- <bool translatable="true" name="config_wifi_enable_5GHz_preference">true</bool> -->
-
     <!-- Wifi driver supports batched scan -->
     <bool translatable="false" name="config_wifi_batched_scan_supported">true</bool>
 
@@ -322,6 +310,12 @@
          Otherwise, the device may fail to wake out of suspend reliably.
          The default is false. -->
     <bool name="config_suspendWhenScreenOffDueToProximity">true</bool>
+
+    <!-- Default value for proximity check on screen wake
+     NOTE ! - Enable for devices that have a fast response proximity sensor (ideally < 300ms)-->
+    <bool name="config_proximityCheckOnWake">true</bool>
+    <integer name="config_proximityCheckTimeout">300</integer>
+    <bool name="config_proximityCheckOnWakeEnabledByDefault">true</bool>
 
     <!-- Enables or disables fading edges when marquee is enabled in TextView.
          Off by default, since the framebuffer readback used to implement the
@@ -413,10 +407,6 @@
         <item>evdo:4094,87380,524288,4096,16384,262144</item>
     </string-array>
 
-    <!-- Flag indicating emergency calls will always use IMS irrespective of the state of
-    the IMS connection -->
-    <!-- <bool name="useImsAlwaysForEmergencyCall">false</bool> -->
-
     <!-- Flag specifying whether VoLTE is available on device -->
     <bool name="config_device_volte_available">true</bool>
 
@@ -466,7 +456,13 @@
             64 - Volume rocker
          For example, a device with Home, Back and Menu keys would set this
          config to 7. -->
-    <integer name="config_deviceHardwareKeys">83</integer>
+    <integer name="config_deviceHardwareKeys">87</integer>
+
+    <!-- Device have mechanical home button. If it is, we don't need to vibrate on it  -->
+    <bool name="config_DeviceHaveMechHome">true</bool>
+
+    <!-- Allow the menu hard key to be disabled in LockScreen on some devices -->
+    <bool name="config_disableMenuKeyInLockScreen">true</bool>
 
     <!-- Hardware keys present on the device with the ability to wake, stored as a bit field.
          This integer should equal the sum of the corresponding value for each
@@ -480,6 +476,7 @@
             64 - Volume rocker
          For example, a device with Home, Back and Menu keys would set this
          config to 7. -->
+    <!--<integer name="config_deviceHardwareWakeKeys">65</integer>-->
 
     <!-- Control the behavior when the user long presses the home button.
             0 - Nothing
@@ -503,14 +500,13 @@
          This needs to match the constants in
          policy/src/com/android/internal/policy/impl/PhoneWindowManager.java
     -->
+    <!--<integer name="config_longPressOnAppSwitchBehavior">1</integer>-->
 
-    <!-- The list absolute paths of jar/apk files containing the device specific handlers,
-         delimited by File.pathSeparator, which defaults to ":" on Android -->
-    <string name="config_deviceKeyHandlerLib" translatable="false">/system/priv-app/ConfigPanel/ConfigPanel.apk</string>
+    <!-- Flag indicating whether round icons should be parsed from the application manifest. -->
+    <bool name="config_useRoundIcon">true</bool>
 
-    <!-- Full qualified name of the class that implements
-         com.android.internal.os.DeviceKeyHandler interface. -->
-    <string name="config_deviceKeyHandlerClass" translatable="false">com.cyanogenmod.settings.device.KeyHandler</string>
+    <!-- Flag indicating whether Home button can wake device. -->
+    <bool name="config_homeCanWake">true</bool>
 
     <!-- Operating volatage for bluetooth controller. 0 by default-->
     <integer name="config_bluetooth_operating_voltage_mv">3300</integer>
@@ -524,7 +520,7 @@
 
     <!-- Support in Surfaceflinger for blur layers.
          NOTE: This requires additional hardware-specific code. -->
-    <!-- <bool name="config_ui_blur_enabled">true</bool> -->
+    <!--<bool name="config_uiBlurEnabled">true</bool>-->
 
     <!-- Default list of files pinned by the Pinner Service -->
     <string-array translatable="false" name="config_defaultPinnerServiceFiles">
@@ -532,12 +528,9 @@
         <item>"/system/framework/oat/arm64/services.odex"</item>
         <item>"/system/framework/arm64/boot.oat"</item>
         <item>"/system/framework/arm64/boot-core-libart.oat"</item>
+        <item>"/data/dalvik-cache/arm64/system@framework@services.jar@classes.dex"</item>
     </string-array>
-
-    <!-- If this is true, the screen will fade off. -->
-    <bool name="config_animateScreenLights">true</bool>
-
-    <!-- Whether cpu boost is enabled for AppLaunch -->
+<!-- Whether cpu boost is enabled for AppLaunch -->
     <bool name="config_enableCpuBoostForAppLaunch">true</bool>
     <integer name="launchboost_timeout_param">2000</integer>
     <integer-array name="launchboost_param_value">
@@ -601,7 +594,7 @@
         <item>0x00000708</item>
         <item>0x40C04000</item>
         <item>0x00000001</item>
-</integer-array>
+    </integer-array>
    <!-- Whether cpu boost is enabled for PanelView fling -->
    <bool name="config_enableCpuBoostForPanelViewFling">false</bool>
    <integer-array name="panelview_flingboost_param_value">
@@ -610,7 +603,5 @@
        <item>0x40800000</item> <!-- CPUBOOST_MIN_FREQ resource opcode-->
        <item>0x514</item>      <!-- CPUBOOST MIN_FREQ resource value-->
 </integer-array>
-    <!-- Whether home button can wake device -->
-    <bool name="config_homeCanWake">true</bool>
-</resources>
 
+</resources>
