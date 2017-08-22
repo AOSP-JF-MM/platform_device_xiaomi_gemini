@@ -121,7 +121,7 @@ PRODUCT_COPY_FILES += \
 
 # Camera
 PRODUCT_PACKAGES += \
-    SnapdragonCamera
+    Snap
 
 # Device config scripts
 PRODUCT_PACKAGES += \
@@ -167,8 +167,8 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/calib.cfg:system/etc/calib.cfg
 
 # Doze mode
-PRODUCT_PACKAGES += \
-    XiaomiDoze
+#PRODUCT_PACKAGES += \
+#    XiaomiDoze
 
 # Fingerprint
 PRODUCT_PACKAGES += \

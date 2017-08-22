@@ -1,5 +1,6 @@
 #
 # Copyright (C) 2016 The CyanogenMod Project
+# Copyright (C) 2017 The LineageOS Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -21,7 +22,7 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 # Inherit from gemini device
 $(call inherit-product, device/xiaomi/gemini/device.mk)
 
-# Inherit some common CM stuff.
+# Inherit some common Du stuff.
 $(call inherit-product, vendor/aosp/common.mk)
 
 # Device identifier. This must come after all inclusions.
@@ -40,6 +41,11 @@ PRODUCT_BUILD_PROP_OVERRIDES += \
     PRIVATE_BUILD_DESC="gemini-user 7.0 NRD90M V8.2.1.0.NAACNEB release-keys"
 
 TARGET_VENDOR := Xiaomi
-DEFAULT_ROOT_METHOD := magisk
-# Boot animation resolution
+
+# build variables
+SET_V4A := true
+TARGET_NO_DSPMANAGER := true
 TARGET_BOOT_ANIMATION_RES := 1080
+#DEFAULT_ROOT_METHOD := magisk
+#SET_DMOD := false
+#TARGET_PREBUILT_KERNEL="/home/android/aex/kernel/xiaomi/b-b_msm8996/arch/arm64/boot/Image.gz-dtb"
