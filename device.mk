@@ -154,12 +154,9 @@ PRODUCT_PACKAGES += \
 
 # Display
 PRODUCT_PACKAGES += \
-    copybit.msm8996 \
     gralloc.msm8996 \
     hwcomposer.msm8996 \
-    memtrack.msm8996 \
-    liboverlay \
-    libtinyxml
+    memtrack.msm8996
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/calib.cfg:system/etc/calib.cfg
@@ -268,7 +265,8 @@ PRODUCT_PACKAGES += \
 
 # QMI
 PRODUCT_PACKAGES += \
-    libjson
+    libjson \
+    libtinyxml
 
 # Recovery
 PRODUCT_PACKAGES += \
