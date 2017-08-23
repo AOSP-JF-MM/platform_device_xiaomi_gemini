@@ -546,6 +546,24 @@
         <item>0x00000001</item>
     </integer-array>
 
+     <!-- Whether cpu boost is enabled right after boot -->
+    <bool name="config_enableCpuBoostOnBoot">true</bool>
+    <!-- Duration of the boost in seconds, default is 30 -->
+    <integer name="onbootboost_duration">30</integer>
+    <!-- Boost parameters which get passed to QPerformance -->
+    <integer-array name="onbootboost_param_value"
+        <item>0x40C00000</item>
+        <item>0x00000001</item>
+        <item>0x40800000</item>
+        <item>0x00000708</item>
+        <item>0x40400000</item>
+        <item>0x00000001</item>
+        <item>0x41000000</item>
+        <item>0x00000004</item>
+        <item>0x42804000</item>
+        <item>0x00000001</item>
+    </integer-array>
+
     <!-- Whether disablepacking is enabled or not -->
     <bool name="config_disablePacking">true</bool>
     <integer name="disablepacking_timeout_param">5000</integer>
@@ -572,6 +590,33 @@
         <item>0x00000001</item>
     </integer-array>
 
+ <!-- Whether Keypress Boost is enabled -->
+  <bool name="config_enableKeypressBoost">true</bool>
+
+  <!-- Boost parameters which get passed to QPerformance -->
+  <integer-array name="keypressboost_strong_param_value"
+        <item>0x40C00000</item>
+        <item>0x00000001</item>
+        <item>0x40800000</item>
+        <item>0x00000708</item>
+        <item>0x40C04000</item>
+        <item>0x00000001</item>
+    </integer-array>
+
+  <integer-array name="keypressboost_weak_param_value"
+        <item>0x40C00000</item>
+        <item>0x00000001</item>
+        <item>0x40800000</item>
+        <item>0x00000514</item>
+        <item>0x40C04000</item>
+        <item>0x00000001</item>
+    </integer-array>
+
+     <!-- Whether FP unlock Boost is enabled
+         Depends on Keypress Boost -->
+    <bool name="config_enableFPUnlockBoost">true</bool>
+    <integer name="fpunlockboost_duration">1200</integer>
+
     <!-- Whether cpu boost is enabled for overscroller fling. -->
     <bool name="config_enableCpuBoostForOverScrollerFling">true</bool>
     <integer name="flingboost_timeout_param">0</integer>
@@ -584,9 +629,21 @@
         <item>0x00000001</item>
     </integer-array>
 
+  <!-- Whether cpu boost is enabled for pre-fling. -->
+    <bool name="config_enableCpuBoostForPreFling">true</bool>
+    <integer name="preflingboost_timeout_param">500</integer>
+    <integer-array name="preflingboost_param_value"
+        <item>0x40C00000</item>
+        <item>0x00000001</item>
+        <item>0x40800000</item>
+        <item>0x00000514</item>
+        <item>0x40C04000</item>
+        <item>0x00000001</item>
+    </integer-array>
+
     <!-- Whether cpu boost is enabled for horizontal scroll. -->
     <bool name="config_enableCpuBoostForScroller">true</bool>
-    <integer name="scrollboost_timeout_param">0</integer>
+    <integer name="scrollboost_timeout_param">500</integer>
     <integer-array name="scrollboost_param_value">
         <item>0x40C00000</item>
         <item>0x00000001</item>
@@ -602,6 +659,23 @@
        <item>0x1</item>        <!-- SCHEDBOOST resource value-->
        <item>0x40800000</item> <!-- CPUBOOST_MIN_FREQ resource opcode-->
        <item>0x514</item>      <!-- CPUBOOST MIN_FREQ resource value-->
-</integer-array>
+   </integer-array>
+
+    <!-- Whether cpu freq aggr is enabled for AppLaunch -->
+    <bool name="config_enableLaunchBoostv2">true</bool>
+    <integer name="lboostv2_timeout_param"2000</integer>
+    <integer-array name="lboostv2_param_value"
+        <item>0x40C00000</item>
+        <item>0x00000001</item>
+        <item>0x40800000</item>
+        <item>0x00000708</item>
+        <item>0x40400000</item>
+        <item>0x00000001</item>
+        <item>0x41000000</item>
+        <item>0x00000004</item>
+        <item>0x42804000</item>
+        <item>0x00000001</item>
+    </integer-array>
+
 
 </resources>
