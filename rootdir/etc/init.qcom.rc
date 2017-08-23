@@ -442,6 +442,13 @@ on property:sys.boot_completed=1
     write /sys/block/dm-0/queue/read_ahead_kb 128
     write /sys/block/dm-1/queue/read_ahead_kb 128
     write /sys/block/sda/queue/iostats 1
+    # Enable wakelocks
+    write /sys/module/wakeup/parameters/enable_wlan_ws "Y"
+    write /sys/module/wakeup/parameters/enable_netlink_ws "N"
+    write /sys/module/wakeup/parameters/enable_ipa_ws "N"
+    write /sys/module/wakeup/parameters/enable_timerfd_ws "N"
+    # Disable fsync
+    write /sys/module/sync/parameters/fsync_enabled "N"
 
     # CPE fw_name used by sound trigger HAL
     chown media audio /sys/kernel/wcd_cpe0/fw_name
