@@ -51,23 +51,15 @@ BOARD_KERNEL_TAGS_OFFSET := 0x00000100
 BOARD_RAMDISK_OFFSET := 0x01000000
 TARGET_KERNEL_ARCH := arm64
 TARGET_KERNEL_HEADER_ARCH := arm64
-#TARGET_KERNEL_CONFIG := aosp_gemini_defconfig
-#TARGET_KERNEL_SOURCE := kernel/xiaomi/msm8996
-#TARGET_KERNEL_CROSS_COMPILE_PREFIX := aarch64-linux-android-
-
 #Stock kernel build definitions
 #TARGET_KERNEL_CONFIG := gemini_defconfig
 #TARGET_KERNEL_SOURCE := kernel/xiaomi/msm8996
 #TARGET_KERNEL_CROSS_COMPILE_PREFIX := aarch64-linux-android-
 
-#UberTC
-#KERNEL_TOOLCHAIN := /home/android/aex/toolchain/ubertc/bin
-
-
 #EAS kernel build definitions
-TARGET_KERNEL_CONFIG := b--b_defconfig
-TARGET_KERNEL_SOURCE := kernel/xiaomi/b-b_msm8996
-KERNEL_TOOLCHAIN := /home/android/aex/kernel/xiaomi/b-b_msm8996/android-toolchain-arm64/bin
+TARGET_KERNEL_CONFIG := mod_defconfig
+TARGET_KERNEL_SOURCE := kernel/xiaomi/eas_msm8996
+KERNEL_TOOLCHAIN := /home/android/aex/kernel/xiaomi/eas_msm8996/android-toolchain-arm64/bin
 TARGET_KERNEL_CROSS_COMPILE_PREFIX := arm-eabi-
 
 
