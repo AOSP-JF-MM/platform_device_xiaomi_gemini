@@ -161,10 +161,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     XiaomiDoze
 
-# Fingerprint
-PRODUCT_PACKAGES += \
-    fingerprintd
-
 # For config.fs
 PRODUCT_PACKAGES += \
     fs_config_files
@@ -274,10 +270,6 @@ PRODUCT_PACKAGES += \
     libxml2 \
     rild_socket
 
-# Sensors
-PRODUCT_PACKAGES += \
-    sensors.msm8996
-
 # Seccomp policy
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/seccomp_policy/mediacodec.policy:system/vendor/etc/seccomp_policy/mediacodec.policy
@@ -288,8 +280,6 @@ PRODUCT_PACKAGES += \
 
 # WiFi
 PRODUCT_PACKAGES += \
-    libqsap_sdk \
-    libQWiFiSoftApCfg \
     libwpa_client \
     wificond \
     hostapd \
@@ -307,3 +297,10 @@ PRODUCT_COPY_FILES += \
 
 # MSM8996 Headers
 PRODUCT_VENDOR_KERNEL_HEADERS := hardware/qcom/msm8996/kernel-headers
+
+# HIDL
+$(call inherit-product, $(LOCAL_PATH)/hidl.mk)
+
+# HIDL manifest
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/manifest.xml:system/vendor/manifest.xml
