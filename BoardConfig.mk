@@ -117,6 +117,9 @@ VSYNC_EVENT_PHASE_OFFSET_NS := 2000000
 # Encryption
 TARGET_HW_DISK_ENCRYPTION := true
 
+# Filesystem
+TARGET_FS_CONFIG_GEN := $(DEVICE_PATH)/config.fs
+
 # Init
 TARGET_PLATFORM_DEVICE_BASE := /devices/soc/
 
