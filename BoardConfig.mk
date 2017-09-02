@@ -147,7 +147,7 @@ TARGET_USERIMAGES_USE_F2FS := true
 BOARD_HAL_STATIC_LIBRARIES := libdumpstate.msm8996
 
 # QCOM
-PRODUCT_BOOT_JARS += tcmclient com.qti.dpmframework dpmapi com.qti.location.sdk
+#PRODUCT_BOOT_JARS += tcmclient com.qti.dpmframework dpmapi com.qti.location.sdk
 
 # Recovery
 TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/rootdir/etc/fstab.qcom
