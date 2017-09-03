@@ -147,9 +147,6 @@ TARGET_USERIMAGES_USE_F2FS := true
 BOARD_PERIODIC_CHORES_INTERVAL_FAST := 60*10
 BOARD_PERIODIC_CHORES_INTERVAL_SLOW := -1
 
-# Power
-BOARD_HAL_STATIC_LIBRARIES := libdumpstate.msm8996
-
 # QCOM
 #PRODUCT_BOOT_JARS += tcmclient com.qti.dpmframework dpmapi com.qti.location.sdk
 
