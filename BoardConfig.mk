@@ -54,6 +54,9 @@ TARGET_KERNEL_CONFIG := aosp_gemini_defconfig
 TARGET_KERNEL_SOURCE := kernel/xiaomi/msm8996
 TARGET_KERNEL_CROSS_COMPILE_PREFIX := aarch64-linux-android-
 
+# NFC
+NXP_CHIP_TYPE := 2
+
 # Platform
 TARGET_BOARD_PLATFORM := msm8996
 TARGET_BOARD_PLATFORM_GPU := qcom-adreno530
