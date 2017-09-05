@@ -253,7 +253,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.ota.romname=AOSP-GEMINI-OREO \
     ro.ota.version=$(shell date -u +%Y%m%d) \
-    ro.ota.manifest=http://romhut.com/roms/aosp-gemini-oreo-309/ota.xml
+    ro.ota.manifest=https://romhut.com/roms/aosp-gemini-oreo/ota.xml
 
 # Power
 PRODUCT_PACKAGES += \
