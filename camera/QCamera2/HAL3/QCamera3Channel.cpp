@@ -38,6 +38,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "hardware/gralloc.h"
+#include <sys/stat.h>
 #include <utils/Timers.h>
 
 // Camera dependencies
