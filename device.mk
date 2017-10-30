@@ -284,6 +284,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     libwpa_client \
     wificond \
+    wifilogd \
     hostapd \
     readfem \
     readmac \
