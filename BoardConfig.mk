@@ -197,7 +197,7 @@ OVERRIDE_RS_DRIVER := libRSDriver_adreno.so
 # RIL
 BOARD_RIL_CLASS := ../../../$(DEVICE_PATH)/ril
 PROTOBUF_SUPPORTED := true
-#TARGET_RIL_VARIANT := caf
+TARGET_RIL_VARIANT := caf
 
 # SELinux
 include device/qcom/sepolicy/sepolicy.mk
