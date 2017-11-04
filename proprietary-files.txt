@@ -589,9 +589,6 @@ vendor/lib64/libimsmedia_jni.so
 vendor/lib64/librcc.so
 vendor/lib64/libvoice-svc.so
 
-# IPA
-bin/ipacm-diag
-
 # Graphics firmware
 etc/firmware/a530_zap.b00
 etc/firmware/a530_zap.b01
