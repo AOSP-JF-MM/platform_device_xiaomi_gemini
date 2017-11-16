@@ -444,6 +444,7 @@ vendor/lib/hw/gatekeeper.msm8996.so
 
 # GPS
 bin/loc_launcher
+bin/lowi-server
 bin/xtwifi-client
 bin/xtwifi-inet-agent
 etc/permissions/com.qti.location.sdk.xml
@@ -476,6 +477,8 @@ vendor/lib64/libloc_ext.so
 vendor/lib64/liblocationservice.so
 vendor/lib64/liblocationservice_glue.so
 vendor/lib64/liblowi_client.so
+vendor/lib64/liblowi_wifihal.so
+vendor/lib64/liblowi_wifihal_nl.so
 vendor/lib64/libquipc_os_api.so
 vendor/lib64/libulp2.so
 vendor/lib64/libxt_native.so
