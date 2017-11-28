@@ -440,7 +440,7 @@ void power_hint(power_hint_t hint, void *data)
             if (strncmp(governor, SCHED_GOVERNOR, strlen(SCHED_GOVERNOR)) == 0) {
                 // Setting the value of foreground schedtune boost to 10 and
                 // scaling_min_freq to 900MHz.
-                int resources[] = {0x40800000, 900, 0x40800100, 900, 0x42C0C000, 0xA, 0x41800000, 0x33};
+                int resources[] = {0x40800000, 900, 0x40800100, 900, 0x42C0C000, 0x10, 0x41800000, 0x33};
                 interaction(duration, sizeof(resources)/sizeof(resources[0]), resources);
             } else { // Scheduler is HMP.
                 int resources[] = {0x41800000, 0x33, 0x40800000, 1000, 0x40800100, 1000, 0x40C00000, 0x1};
