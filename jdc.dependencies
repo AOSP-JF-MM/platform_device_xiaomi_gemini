@@ -5,9 +5,9 @@
     "branch":      "aosp-7.1.2_r36"
   },
   {
-    "repository": "PhilSmith31/proprietary_vendor_xiaomi",
+    "repository": "AOSP-JF-MM/proprietary_vendor_xiaomi",
     "target_path": "vendor/xiaomi",
-    "branch":      "aosp-7.1.2_r36"
+    "branch":      "aosp-7.1.2"
   },
   {
     "repository": "PhilSmith31/platform_packages_resources_devicesettings",
