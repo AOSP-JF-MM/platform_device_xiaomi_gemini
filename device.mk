@@ -314,3 +314,7 @@ PRODUCT_COPY_FILES += \
 # OmniClock
 PRODUCT_PACKAGES += \
 	OmniClockOSS
+
+# Launcher3
+PRODUCT_PACKAGES += \
+	Launcher3
