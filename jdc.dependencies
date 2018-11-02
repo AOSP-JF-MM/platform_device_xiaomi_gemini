@@ -2,7 +2,7 @@
   {
     "repository": "PhilSmith31/platform_kernel_xiaomi_msm8996",
     "target_path": "kernel/xiaomi/msm8996",
-    "branch":      "bb_linux-stable_caf"
+    "branch":      "bb"
   },
   {
     "repository": "AOSP-JF-MM/proprietary_vendor_xiaomi",
