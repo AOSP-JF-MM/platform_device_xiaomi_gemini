@@ -217,3 +217,8 @@ WPA_SUPPLICANT_VERSION := VER_0_8_X
 
 # Inherit from the proprietary version
 -include vendor/xiaomi/gemini/BoardConfigVendor.mk
+
+# Diverse (added by PhilSmith)
+WITH_ROOT := false
+DEVICE_MAINTAINER := jw
+DEVICE_MAINTAINERS := jw

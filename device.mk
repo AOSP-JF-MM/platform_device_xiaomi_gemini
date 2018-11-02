@@ -318,3 +318,8 @@ PRODUCT_PACKAGES += \
 # Launcher3
 PRODUCT_PACKAGES += \
 	Launcher3
+	
+# Substratum
+PRODUCT_PACKAGES += \
+	Substratum \
+	ThemeInterfacer
