@@ -220,5 +220,4 @@ WPA_SUPPLICANT_VERSION := VER_0_8_X
 
 # Diverse (added by PhilSmith)
 WITH_ROOT := false
-DEVICE_MAINTAINER := jw
 DEVICE_MAINTAINERS := jw
