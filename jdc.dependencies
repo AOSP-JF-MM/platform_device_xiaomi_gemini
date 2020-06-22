@@ -1,17 +1,17 @@
 [
   {
-    "repository": "AOSP-JF-MM/platform_kernel_xiaomi_msm8996",
+    "repository": "PhilSmith31/platform_kernel_xiaomi_msm8996",
     "target_path": "kernel/xiaomi/msm8996",
-    "branch":      "aosp-7.1.2"
+    "branch":      "bb"
   },
   {
-    "repository": "AOSP-JF-MM/proprietary_vendor_xiaomi",
+    "repository": "PhilSmith31/proprietary_vendor_xiaomi",
     "target_path": "vendor/xiaomi",
-    "branch":      "aosp-7.1.2"
+    "branch":      "aosp-7.1.2_r36"
   },
   {
-    "repository": "AOSP-JF-MM/platform_packages_resources_devicesettings",
+    "repository": "PhilSmith31/platform_packages_resources_devicesettings",
     "target_path": "packages/resources/devicesettings",
-    "branch":      "aosp-7.1.2"
+    "branch":      "aosp-7.1.2_r36"
   }
 ]
